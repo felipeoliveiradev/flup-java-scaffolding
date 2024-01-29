@@ -8,6 +8,9 @@ public interface ValidationHandler {
 
     ValidationHandler append(Error anError);
 
+
+    Notification appendList(List<Error> anError);
+
     ValidationHandler append(ValidationHandler anHandler);
 
     ValidationHandler validate(Validation aValidation);

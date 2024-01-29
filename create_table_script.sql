@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS example_table (id VARCHAR(255), name VARCHAR(255), age VARCHAR(255), city VARCHAR(255));

@@ -1,0 +1,158 @@
+package com.task.manager.modules.category.domain;
+
+
+import com.task.manager.modules.required.helpers.AggregateRoot;
+import com.task.manager.modules.validation.handlers.ValidationHandler;
+
+import java.time.Instant;
+import java.util.Objects;
+
+public class Category extends AggregateRoot<CategoryID> implements Cloneable {
+
+  private String post;
+  private String image;
+  private String userId;
+  private Instant createdAt;
+  private Instant updatedAt;
+  private Instant deletedAt;
+
+  private Category(
+    final CategoryID anId,
+    final String postField,
+    final String imageField,
+    final String userIdField,
+    final Instant createdAtField,
+    final Instant updatedAtField,
+    final Instant deletedAtField
+  
+  ) {
+  super(anId);
+  this.post = postField;
+  this.image = imageField;
+  this.userId = userIdField;
+  this.createdAt = Objects.requireNonNull(this.createdAt, "'createdAt' should not be null");
+  this.updatedAt = Objects.requireNonNull(this.updatedAt, "'updatedAt' should not be null");
+  this.deletedAt = deletedAtField;
+  }
+
+
+
+  public static Category newCategory(final String aName, final String aDescription, final String lastName, final boolean isActive){
+  final var id = CategoryID.unique();
+  final var now = Instant.now();
+  final var deletedAt = isActive ? null : now;
+  return new Category(id, aName, aDescription, lastName, isActive, now, now, deletedAt);
+  }
+
+  public static Category with(
+  final Category aCategory
+  ) {
+  return with(
+    aCategory.id,
+  aCategory.post,
+  aCategory.image,
+  aCategory.userId,
+  aCategory.createdAt,
+  aCategory.updatedAt,
+  aCategory.deletedAt
+  );
+  }
+
+  public static Category with(
+    final CategoryID anId,
+    final String post,
+    final String image,
+    final String userId,
+    final Instant createdAt,
+    final Instant updatedAt,
+    final Instant deletedAt
+  
+  ) {
+  return new Category(
+    anId,
+    post,
+    image,
+    userId,
+    createdAt,
+    updatedAt,
+    deletedAt
+  );
+  }
+
+  @Override
+  public void validate(final ValidationHandler handler) {
+  new CategoryValidator(this, handler).validate();
+  }
+
+  public void deactivate(){
+  if(getDeletedAt() == null){
+  this.deletedAt = Instant.now();
+  }
+  this.active = false;
+  this.updatedAt = Instant.now();
+  }
+
+  public void activate(){
+
+  this.deletedAt = null;
+  this.active = true;
+  this.updatedAt = Instant.now();
+  }
+
+
+  public Category update( final String aName, final String aDescription, final boolean isActive){
+
+  if(isActive){
+  this.activate();
+  } else {
+  this.deactivate();
+  }
+
+
+  this.name = aName;
+  this.description = aDescription;
+  this.updatedAt = Instant.now();
+
+  return this;
+  }
+
+  public CategoryID getId() {
+  return id;
+  }
+
+  public String getName() {
+  return name;
+  }
+
+  public String getDescription() {
+  return description;
+  }
+  public String getLastName() { return lastName;}
+
+  public boolean isActive() {
+  return active;
+  }
+
+  public Instant getCreatedAt() {
+  return createdAt;
+  }
+
+  public Instant getUpdatedAt() {
+  return updatedAt;
+  }
+
+  public Instant getDeletedAt() {
+  return deletedAt;
+  }
+
+  @Override
+  public Category clone() {
+  try {
+  return (Category) super.clone();
+  } catch (CloneNotSupportedException e) {
+  throw new AssertionError();
+  }
+  }
+
+
+  }

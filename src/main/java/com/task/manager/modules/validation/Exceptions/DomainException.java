@@ -3,6 +3,7 @@ package com.task.manager.modules.validation.Exceptions;
 import com.task.manager.modules.validation.Error;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DomainException extends NoStacktraceException{
 

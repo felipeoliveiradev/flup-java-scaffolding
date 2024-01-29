@@ -1,8 +1,9 @@
-package com.task.manager.modules.validation.handlers;
+package com.task.manager.modules.validation;
 
 
-import com.task.manager.modules.validation.Error;
 import com.task.manager.modules.validation.Exceptions.DomainException;
+import com.task.manager.modules.validation.handlers.Notification;
+import com.task.manager.modules.validation.handlers.ValidationHandler;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class ThrowsValidationHandler implements ValidationHandler {
     }
 
     @Override
-    public Notification appendList(List<Error> anError) {
+    public Notification appendList(final List<Error> anError) {
         throw DomainException.with(anError);
     }
 

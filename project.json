@@ -1,0 +1,117 @@
+{
+  "project": {
+    "name": "Felipe",
+    "version": "1",
+    "email": "1",
+    "package": "com.task.manager"
+  },
+  "modules": [
+    {
+      "info": {
+        "name": "category",
+        "version": "1.0",
+        "keyword": "category/felipe"
+      },
+      "configs": {
+        "bank": {
+          "type": [
+            {
+              "name": "MYSQL"
+            }
+          ]
+        }
+      },
+      "entity": [
+        {
+          "name": "name",
+          "type": "String",
+          "bank": {
+            "props": {
+              "size": 255
+            }
+          },
+          "validations": {
+            "maxLength": 244,
+            "minLength": 3,
+            "name": true
+          }
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "bank": {
+            "props": {
+              "required": true,
+              "size": 2000
+            }
+          },
+          "validations": {
+            "maxLength": 2000,
+            "minLength": 3
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "user",
+        "version": "1.0",
+        "keyword": "category/felipe"
+      },
+      "configs": {
+        "bank": {
+          "type": ["MYSQL", "MONGO"]
+        }
+      },
+      "entity": [
+        {
+          "name": "name",
+          "type": "String",
+          "bank": {
+            "props": {
+              "size": 299,
+              "required": true,
+              "unique": true
+            }
+          },
+          "validations": {
+
+            "maxLength": 244,
+            "minLength": 3,
+            "name": true
+          }
+        },
+        {
+          "name": "lastName",
+          "type": "String",
+          "bank": {
+            "props": {
+              "size": 2000
+            }
+          },
+          "validations": {
+            "maxLength": 2000,
+            "minLength": 3,
+            "name": true
+          }
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "bank": {
+            "props": {
+              "unique": true,
+              "size": 200,
+              "required": true
+            }
+          },
+          "validations": {
+            "maxLength": 200,
+            "minLength": 3,
+            "email": true
+          }
+        }
+      ]
+    }
+  ]
+}
